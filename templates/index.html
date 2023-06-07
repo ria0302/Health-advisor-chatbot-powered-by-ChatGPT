@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+</head>
+
+<body>
+    <style>
+        body {
+    font-family: Garamond;
+    background-color: rgb(198, 247, 198);
+}
+
+h1 {
+    color: rgb(1, 72, 1);
+    margin-bottom: 0;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 40px;
+}
+
+p{
+    color: black;
+    text-align: center;
+    margin-top: 40px;
+}
+
+h3 {
+    color: black;
+    font-size: 20px;
+    margin-top: 3px;
+    text-align: center;
+}
+.row {
+    display: flex;
+    flex-wrap: wrap;
+    margin-right: -20px;
+    margin-left: -20px;
+}
+
+.ml-auto{
+    margin-left:auto !important;
+}
+.mr-auto{
+    margin-right:auto !important;
+}
+
+.col-md-10,.col-md-8,.col-md-4{
+    position: relative;
+    width: 130%;
+    min-height: 1px;
+    padding-right: 15px;
+    padding-left: 15px;
+}
+.col-md-8{flex:0 0 66.666667%;max-width:66.666667%}
+.col-md-4{flex:0 0 33.333333%;max-width:33.333333%}
+.col-md-10{flex:0 0 93%;max-width:93%}
+
+.form-control {
+    background: no-repeat bottom,50% calc(100% - 1px);
+    background-image: none, none;
+    background-size: auto, auto;
+    background-size: 0 100%,100% 100%;
+    border: 0;
+    height: 36px;
+    transition: background 0s ease-out;
+    padding-left: 0;
+    padding-right: 0;
+    border-radius: 0;
+    font-size: 14px;
+}
+.form-control {
+    display: block;
+    width: 100%;
+    padding: .4375rem 0;
+    padding-right: 0px;
+    padding-left: 0px;
+    font-size: 1rem;
+    line-height: 1.5;
+    color: #495057;
+    border:none;
+    background-color: transparent;
+    background-clip: padding-box;
+    border-bottom: 1px solid #d2d2d2;
+    box-shadow: none;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.btn {
+    float: left;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    user-select: none;
+    border: 1px solid transparent;
+    padding: .46875rem 1rem;
+    font-size: 1rem;
+    line-height: 1.5;
+    border-radius: .25rem;
+    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+.btn-warning {
+    color: #fff;
+    background-color: #f08f00;
+    border-color: #c27400;
+}
+.btn.btn-warning:active, .btn.btn-warning:focus, .btn.btn-warning:hover {
+    box-shadow: 0 14px 26px -12px rgba(255,152,0,.42),0 4px 23px 0 rgba(0,0,0,.12),0 8px 10px -5px rgba(255,152,0,.2);
+}
+
+button, input, optgroup, select, textarea {
+    margin: 0;
+    font-family: inherit;
+    font-size: inherit;
+    line-height: inherit;
+    overflow:visible;
+}
+#chatbox {
+    background-color: white;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    min-height: 70px;
+    margin-top: 60px;
+}
+
+#userInput {
+    margin-left: auto;
+    margin-right: auto;
+    width: 40%;
+    margin-top: 60px;
+}
+
+#textInput {
+    width: 87%;
+    border: none;
+    border-bottom: 3px solid #009688;
+    font-family: Garamond;
+    font-size: 17px;
+}
+
+#buttonInput {
+    padding: 3px;
+    font-family: Garamond;
+    font-size: 17px;
+}
+
+.condition{
+    margin-top: 20px;
+    justify-content: center;
+}
+.userText {
+    color: white;
+    font-family: Garamond;
+    font-size: 17px;
+    text-align: right !important;
+    line-height: 30px;
+    margin: 5px;
+}
+
+.userText span {
+    background-color: #009688;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+.botText {
+    color: white;
+    font-family: Garamond;
+    font-size: 17px;
+    text-align: left;
+    line-height: 30px;
+    margin: 5px;
+}
+
+.botText span {
+    background-color: lightcoral;
+    padding: 10px;
+    border-radius: 6px;
+}
+
+#tidbit {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 300px;
+}
+    </style>
+    <div class="row">
+        <div class="col-md-10 mr-auto ml-auto">
+    <h1>Welcome to HealthGPT</h1>
+    <p>Select your health condition and its severity for personalized advice from HealthGPT.<br>(Please wait patiently as it may take a while to reply.)</p>
+    <form method="POST" action="http://127.0.0.1:5000/get">
+        <div align="center">
+        <label for="conditions" class="condition"><b>Health condition:</b></label>
+                <select id="conditions" name="cond" class="condition">                   
+                    <option value="Asthma">Asthma</option>
+                    <option value="Breast cancer (female)">Breast cancer (female)</option>
+                    <option value="Breast cancer (male)">Breast cancer (male)</option>
+                    <option value="Chest pain">Chest pain</option>
+                    <option value="Chronic pain">Chronic pain</option>
+                    <option value="Common cold">Common cold</option>
+                    <option value="Constipation">Constipation</option>
+                    <option value="Cough">Cough</option>
+                    <option value="COVID 19">COVID 19</option>
+                    <option value="Depression">Depression</option>
+                    <option value="Diarrhea">Diarrhea</option>
+                    <option value="Fever">Fever</option>
+                    <option value="Headache">Headache</option>
+                    <option value="Kidney stones">Kidney stones</option>
+                    <option value="Malaria">Malaria</option>
+                    <option value="Obesity">Obesity</option>
+                    <option value="Pneumonia">Pneumonia</option>
+
+                </select>
+                <label for="severity" class="condition"><b>Severity:</b></label>
+                <select id="severity" name="sev" class="condition">
+                    <option value="mild">Mild</option>
+                    <option value="moderate">Moderate</option>
+                    <option value="severe">Severe</option>
+                    <option value="Tuberculosis">Tuberculosis</option>
+                </select>
+            </div>
+        <div id="chatbox">
+            <div class="col-md-8 ml-auto mr-auto">
+                <p class="botText"><span>Hi! I am HealthGPT.</span></p>
+            </div>
+        </div>
+        <div id="userInput" class="row">
+            <div class="col-md-10">
+                <input id="text" type="text" name="msg" placeholder="Enter your message" class="form-control">
+                <button type="submit" id="send" class="btn btn-warning">Send</button>
+            </div>
+        </div>
+    </form>
+</div>
+</div>
+
+<script>
+    $(document).ready(function() {
+        $("form").on("submit", function(event) {
+            var rawText = $("#text").val();
+            var c = $("#conditions").val();
+            var s = $("#severity").val();
+            var userHtml = '<p class="userText"><span>' + rawText + "</span></p>";
+            $("#text").val("");
+            $("#chatbox").append(userHtml);
+            document.getElementById("userInput").scrollIntoView({
+                block: "start",
+                behavior: "smooth",
+            });
+            $.ajax({
+                data: {
+                    msg: rawText,
+                    cond: c,
+                    sev: s,
+                },
+                type: "POST",
+                url: "/get",
+            }).done(function(data) {
+                var botHtml = '<p class="botText"><span>' + data + "</span></p>";
+                $("#chatbox").append($.parseHTML(botHtml));
+                document.getElementById("userInput").scrollIntoView({
+                    block: "start",
+                    behavior: "smooth",
+                });
+            });
+            event.preventDefault();
+        });
+    });
+</script>
+</body>
+
+</html>
